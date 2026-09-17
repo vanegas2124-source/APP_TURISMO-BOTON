@@ -13,7 +13,6 @@ import 'pages/profile_page.dart';
 import 'pages/recommendations_page.dart';
 import 'pages/reportes_page.dart';
 import 'pages/rutas_seguras_page.dart';
-import 'pages/security_page.dart';
 import 'services/activity_survey_service.dart';
 import 'services/supabase_service.dart';
 import 'services/storage_service.dart';
@@ -240,13 +239,6 @@ class _MainScaffoldState extends State<MainScaffold> {
       icon: Icons.auto_awesome,
       page: RecommendationsPage(
         key: PageStorageKey<String>('RecommendationsPage'),
-      ),
-    ),
-    _NavigationTab(
-      label: 'Seguridad',
-      icon: Icons.sos,
-      page: SecurityPage(
-        key: PageStorageKey<String>('SecurityPage'),
       ),
     ),
     _NavigationTab(
