@@ -11,6 +11,7 @@ import 'pages/login_page.dart';
 import 'pages/mapa_page.dart';
 import 'pages/profile_page.dart';
 import 'pages/recommendations_page.dart';
+import 'pages/ml_tourism_page.dart';
 import 'pages/reportes_page.dart';
 import 'pages/rutas_seguras_page.dart';
 import 'pages/security_page.dart';
@@ -93,10 +94,7 @@ class _AuthGateState extends State<AuthGate> {
 }
 
 class AuthenticatedApp extends StatefulWidget {
-  const AuthenticatedApp({
-    super.key,
-    required this.user,
-  });
+  const AuthenticatedApp({super.key, required this.user});
 
   final AppUser user;
 
@@ -137,9 +135,7 @@ class _AuthenticatedAppState extends State<AuthenticatedApp> {
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+            body: Center(child: CircularProgressIndicator()),
           );
         }
 
@@ -151,7 +147,11 @@ class _AuthenticatedAppState extends State<AuthenticatedApp> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                    const Icon(
+                      Icons.error_outline,
+                      size: 48,
+                      color: Colors.red,
+                    ),
                     const SizedBox(height: 16),
                     const Text(
                       'No se pudieron cargar tus datos. Intenta nuevamente.',
@@ -185,9 +185,7 @@ class _AuthenticatedAppState extends State<AuthenticatedApp> {
               );
             }
 
-            return MainScaffold(
-              onLogout: AuthService.instance.logout,
-            );
+            return MainScaffold(onLogout: AuthService.instance.logout);
           },
         );
       },
@@ -196,10 +194,7 @@ class _AuthenticatedAppState extends State<AuthenticatedApp> {
 }
 
 class MainScaffold extends StatefulWidget {
-  const MainScaffold({
-    super.key,
-    this.onLogout,
-  });
+  const MainScaffold({super.key, this.onLogout});
 
   final VoidCallback? onLogout;
 
@@ -217,23 +212,17 @@ class _MainScaffoldState extends State<MainScaffold> {
     _NavigationTab(
       label: 'Mapa',
       icon: Icons.map,
-      page: MapaPage(
-        key: PageStorageKey<String>('MapaPage'),
-      ),
+      page: MapaPage(key: PageStorageKey<String>('MapaPage')),
     ),
     _NavigationTab(
       label: 'Rutas Seguras',
       icon: Icons.route,
-      page: RutasSegurasPage(
-        key: PageStorageKey<String>('RutasSegurasPage'),
-      ),
+      page: RutasSegurasPage(key: PageStorageKey<String>('RutasSegurasPage')),
     ),
     _NavigationTab(
       label: 'Reportes',
       icon: Icons.report,
-      page: ReportesPage(
-        key: PageStorageKey<String>('ReportesPage'),
-      ),
+      page: ReportesPage(key: PageStorageKey<String>('ReportesPage')),
     ),
     _NavigationTab(
       label: 'Recomendaciones',
@@ -243,32 +232,30 @@ class _MainScaffoldState extends State<MainScaffold> {
       ),
     ),
     _NavigationTab(
+      label: 'Modelos IA',
+      icon: Icons.psychology_alt,
+      page: MlTourismPage(key: PageStorageKey<String>('MlTourismPage')),
+    ),
+    _NavigationTab(
       label: 'Seguridad',
       icon: Icons.sos,
-      page: SecurityPage(
-        key: PageStorageKey<String>('SecurityPage'),
-      ),
+      page: SecurityPage(key: PageStorageKey<String>('SecurityPage')),
     ),
     _NavigationTab(
       label: 'Perfil',
       icon: Icons.person,
-      page: ProfilePage(
-        key: PageStorageKey<String>('ProfilePage'),
-      ),
+      page: ProfilePage(key: PageStorageKey<String>('ProfilePage')),
     ),
   ];
 
   @override
   void initState() {
     super.initState();
-    _tabPages =
-        _tabs.map((tab) => tab.page).toList(growable: false);
+    _tabPages = _tabs.map((tab) => tab.page).toList(growable: false);
     _navigationItems = _tabs
         .map(
-          (tab) => BottomNavigationBarItem(
-            icon: Icon(tab.icon),
-            label: tab.label,
-          ),
+          (tab) =>
+              BottomNavigationBarItem(icon: Icon(tab.icon), label: tab.label),
         )
         .toList(growable: false);
   }
@@ -298,10 +285,7 @@ class _MainScaffoldState extends State<MainScaffold> {
       ),
       body: PageStorage(
         bucket: _pageStorageBucket,
-        child: IndexedStack(
-          index: _selectedIndex,
-          children: _tabPages,
-        ),
+        child: IndexedStack(index: _selectedIndex, children: _tabPages),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

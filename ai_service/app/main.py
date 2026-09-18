@@ -13,6 +13,8 @@ from typing import Dict, List, cast
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 
+from .ml_turismo.router import router as ml_router
+
 app = FastAPI(
     title="Tourism Activity Recommendation Service",
     version="1.0.0",
@@ -22,7 +24,9 @@ app = FastAPI(
         "heurísticas."
     ),
 )
-
+app.include_router(
+    ml_router
+)
 
 class SurveyPayload(BaseModel):
     """Estructura de las respuestas del cuestionario enviado por Flutter."""
